@@ -108,13 +108,14 @@ body {
 }
 .overlay * {
     color: #fff;
+
 }
 .overlay h1{
     font-size: 60px;
     text-align: center;
 }
 .overlay button {
-    background-color: inherit;
+    background: none;
     border: none;
     font-size: 30px;
     margin: 0 70px;
