@@ -1,0 +1,138 @@
+@font-face {
+    font-family: FGC;
+    src: url(FGC.ttf);
+}
+* {
+    font-family: FGC;
+    text-decoration: none;
+}
+body {
+    margin: 0;
+}
+.getStarted {
+    background-color: #000;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+}
+.getStarted h1 {
+    color: #fff;
+    display: block;
+    font-size: 60px;
+    margin: 0 auto;
+    position: relative;
+    top: calc(50vh - 67px);
+    width: 380px;
+}
+#upperScreen {
+    background-image: linear-gradient(#fff, rgb(38, 204, 255));
+    height: 68vh;
+}
+#selectScreen {
+    background-color: #555;
+    bottom: 0;
+    display: block;
+    height: 32vh;
+    position: absolute;
+    text-align: center;
+    width: 100vw;
+}
+.timer {
+    display: block;
+    font-size: 40px;
+    width: 50px;
+    margin: 5px auto;
+}
+.fighter {
+    background-color: rgb(43, 43, 170);
+    border-radius: 5px;
+    box-shadow: 5px 10px rgba(51, 48, 48, 0.5);
+    display: inline-block;
+    height: 60vh;
+    overflow: hidden;
+    position: absolute;
+    top: 60px;
+    width: 24vw;
+}
+.fighterName {
+    background-color: rgb(197, 51, 51);
+    color: #fff;
+    display: none;
+    padding: 5px 5px;
+    position: relative;
+    top: 350px;
+    max-width: auto;
+}
+#player1 {
+    left: 180px;
+}
+#player2 {
+    position: absolute;
+    right: 180px;
+}
+.fighterIcon {
+    border: 5px solid white;
+    border-radius: 25% 0;
+    background-color: rgb(212, 232, 245);
+    height: 80px;
+    margin: 10px;
+}
+.fighterIcon:hover{
+    border: 7px solid rgb(107, 220, 255);
+    height: 90px;
+    margin: 0px;
+}
+.selected, .selected:hover {
+    border: 7px solid rgb(107, 220, 255);
+    height: 90px;
+    margin: 0px;
+}
+.cpuSelected{
+    border: 7px solid rgb(255, 142, 240);
+    height: 90px;
+    margin: 0px;
+}
+.upperFighter {
+    display: block;
+    height: 60vh;
+}
+.overlay {
+    background-color: rgba(0, 0, 0, .9);
+    height: 30vh;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 300px;
+    width: 100vw;
+}
+.overlay * {
+    color: #fff;
+}
+.overlay h1{
+    font-size: 60px;
+    text-align: center;
+}
+.overlay button {
+    background-color: inherit;
+    border: none;
+    font-size: 30px;
+    margin: 0 70px;
+}
+.overlay button:hover{
+    cursor: pointer;
+}
+nav {
+    position: absolute;
+    bottom: 0px;
+    left: 30vw;
+    text-align: center;
+}
+nav a {
+    color: #fff;
+    font-size: 20px;
+    margin: 10px 10px;;
+}
+nav a:hover {
+    color: #c51f5d;
+}
