@@ -1,9 +1,9 @@
 @font-face {
-    font-family: FGC;
-    src: url(FGC.ttf);
+    font-family: ChicagoFLF;
+    src: url(ChicagoFLF.ttf);
 }
 * {
-    font-family: FGC;
+    font-family: ChicagoFLF;
     text-decoration: none;
 }
 body {
@@ -22,8 +22,12 @@ body {
     font-size: 60px;
     margin: 0 auto;
     position: relative;
-    top: calc(50vh - 67px);
+    top: calc(48vh - 67px);
     width: 380px;
+}
+.getStarted h1:hover {
+    color: #59bdff;
+    cursor: pointer;
 }
 #upperScreen {
     background-image: linear-gradient(#fff, rgb(38, 204, 255));
@@ -52,17 +56,19 @@ body {
     height: 60vh;
     overflow: hidden;
     position: absolute;
-    top: 60px;
+    top: 65px;
     width: 24vw;
 }
 .fighterName {
     background-color: rgb(197, 51, 51);
     color: #fff;
     display: none;
+    font-size: 32px;
     padding: 5px 5px;
-    position: relative;
     top: 350px;
+    position: relative;
     max-width: auto;
+    z-index: 1;
 }
 #player1 {
     left: 180px;
@@ -94,8 +100,10 @@ body {
     margin: 0px;
 }
 .upperFighter {
+    bottom: 95px;
     display: block;
     height: 60vh;
+    position: relative;
 }
 .overlay {
     background-color: rgba(0, 0, 0, .9);
@@ -105,16 +113,18 @@ body {
     text-align: center;
     top: 300px;
     width: 100vw;
+    z-index: 999;
 }
 .overlay * {
     color: #fff;
+
 }
 .overlay h1{
     font-size: 60px;
     text-align: center;
 }
 .overlay button {
-    background-color: inherit;
+    background: none;
     border: none;
     font-size: 30px;
     margin: 0 70px;
