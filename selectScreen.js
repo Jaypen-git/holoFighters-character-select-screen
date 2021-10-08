@@ -8,7 +8,10 @@ let time = 60;
 let bgm = document.querySelector('#bgm');
 bgm.loop = true;
 
-let fighters = ['Tokino Sora', 'Usada Pekora', 'Shishiro Botan'];
+let fighters = [{name: 'Tokino Sora', portrait: 'fighters/portraits/Tokino Sora Portrait.png', upper: 'fighters/upperbody/Tokino Sora Upper.png'}, 
+{name: 'Usada Pekora', portrait: 'fighters/portraits/Usada Pekora Portrait.png', upper: 'fighters/upperbody/Usada Pekora Upper.png'},
+{name: 'Shishiro Botan', portrait: 'fighters/portraits/Shishiro Botan Portrait.png', upper: 'fighters/upperbody/Shishiro Botan Upper.png'}
+];
 
 const random = () => {
     return Math.floor(Math.random()*fighters.length);
@@ -32,11 +35,11 @@ const clearDisplay = (img, fighterName) => {
     fighterName.style.display = 'none';
 }
 const populateDisplay = (player, fighter, fighterName) => {
-    player.setAttribute('src', `fighters/upperBody/${fighter} Upper.png`);
+    player.setAttribute('src', fighter.upper);
     player.setAttribute('class', 'upperFighter')
-    player.setAttribute('alt', fighter);
+    player.setAttribute('alt', fighter.name);
     fighterName.style.display = 'block';
-    fighterName.innerText = fighter;
+    fighterName.innerText = fighter.name;
 }
 const Unselect = () => {
     let icons = document.querySelectorAll('img');
@@ -70,6 +73,9 @@ const createNoButton = (elem) => {
     });
     return noButton;
 }
+const previewFighter = () => {
+    
+}
 const selectFighter = (elem, iconNumber) => {
     Unselect();
     let playerIcon = document.getElementById(iconNumber);
@@ -88,7 +94,7 @@ const displayScreen = () => {
     document.querySelector('.getStarted').remove();
     for (let i = 0; i < fighters.length; i++){
         let img = document.createElement('img');
-        img.setAttribute('src', `fighters/portraits/${fighters[i]} Portrait.png`);
+        img.setAttribute('src', fighters[i].portrait);
         img.setAttribute('class', 'fighterIcon')
         img.setAttribute('id', i);
         img.addEventListener('click', function(){
