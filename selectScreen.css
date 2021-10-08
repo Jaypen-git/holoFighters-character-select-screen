@@ -26,7 +26,7 @@ body {
     font-size: 60px;
     margin: 0 auto;
     position: relative;
-    top: calc(48vh - 67px);
+    top: 35vh;
     width: 380px;
 }
 .getStarted h1:hover {
@@ -70,7 +70,7 @@ body {
     display: none;
     font-size: 32px;
     padding: 5px 5px;
-    top: 390px;
+    top: 350px;
     position: relative;
     max-width: auto;
     z-index: 1;
