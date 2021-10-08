@@ -73,8 +73,10 @@ const createNoButton = (elem) => {
     });
     return noButton;
 }
-const previewFighter = () => {
-    
+const previewFighter = (item) => {
+    let fighterImg = display1[2];
+    fighterImg.setAttribute('class', 'preview');
+    fighterImg.setAttribute('src', item.upper);
 }
 const selectFighter = (elem, iconNumber) => {
     Unselect();
@@ -99,6 +101,9 @@ const displayScreen = () => {
         img.setAttribute('id', i);
         img.addEventListener('click', function(){
             selectFighter(fighters[this.id], this.id);
+        });
+        img.addEventListener('mouseover', function(){
+            previewFighter(fighters[this.id]);
         });
         selectScreen.appendChild(img);
     }
