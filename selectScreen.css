@@ -1,6 +1,10 @@
 @font-face {
     font-family: ChicagoFLF;
-    src: url(ChicagoFLF.ttf);
+    src: url(fonts/ChicagoFLF.ttf);
+}
+@font-face {
+    font-family: Retroica;
+    src: url(fonts/Retroica.ttf);
 }
 * {
     font-family: ChicagoFLF;
@@ -44,6 +48,7 @@ body {
 }
 .timer {
     display: block;
+    font-family: Retroica;
     font-size: 40px;
     width: 50px;
     margin: 5px auto;
@@ -65,7 +70,7 @@ body {
     display: none;
     font-size: 32px;
     padding: 5px 5px;
-    top: 350px;
+    top: 390px;
     position: relative;
     max-width: auto;
     z-index: 1;
@@ -105,13 +110,20 @@ body {
     height: 60vh;
     position: relative;
 }
+.preview {
+    /* bottom: 95px; */
+    display: block;
+    height: 60vh;
+    opacity: 0.5;
+    position: relative;
+}
 .overlay {
     background-color: rgba(0, 0, 0, .9);
-    height: 30vh;
+    height: 100vh;
     left: 0;
     position: absolute;
     text-align: center;
-    top: 300px;
+    top: 0;
     width: 100vw;
     z-index: 999;
 }
@@ -120,16 +132,21 @@ body {
 
 }
 .overlay h1{
+    position: relative;
+    top: 35%;
     font-size: 60px;
     text-align: center;
 }
 .overlay button {
+    position: relative;
     background: none;
     border: none;
     font-size: 30px;
     margin: 0 70px;
+    top: 40%;
 }
 .overlay button:hover{
+    color: rgb(255, 73, 73);
     cursor: pointer;
 }
 nav {
