@@ -32,7 +32,7 @@ const selectTimer = () => {
 const clearDisplay = (img, fighterName) => {
     img.removeAttribute('src');
     img.removeAttribute('alt');
-    fighterName.style.display = 'none';
+    fighterName.innerText = '';
 }
 const populateDisplay = (player, fighter, fighterName) => {
     player.setAttribute('src', fighter.upper);
@@ -75,8 +75,9 @@ const createNoButton = (elem) => {
 }
 const previewFighter = (item) => {
     let fighterImg = display1[2];
-    fighterImg.setAttribute('class', 'preview');
+    fighterImg.classList.add('preview');
     fighterImg.setAttribute('src', item.upper);
+    display1[1].innerText = item.name;
 }
 const selectFighter = (elem, iconNumber) => {
     Unselect();
