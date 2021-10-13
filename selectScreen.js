@@ -8,9 +8,9 @@ let time = 60;
 let bgm = document.querySelector('#bgm');
 bgm.loop = true;
 
-let fighters = [{name: 'Tokino Sora', portrait: 'fighters/portraits/Tokino Sora Portrait.png', upper: 'fighters/upperbody/Tokino Sora Upper.png'}, 
-{name: 'Usada Pekora', portrait: 'fighters/portraits/Usada Pekora Portrait.png', upper: 'fighters/upperbody/Usada Pekora Upper.png'},
-{name: 'Shishiro Botan', portrait: 'fighters/portraits/Shishiro Botan Portrait.png', upper: 'fighters/upperbody/Shishiro Botan Upper.png'}
+let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokino Sora Portrait.png', upper: 'images/fighters/upperbody/Tokino-Sora-Upper.png'}, 
+{name: 'Usada Pekora', portrait: 'images/fighters/portraits/Usada Pekora Portrait.png', upper: 'images/fighters/upperbody/Usada-Pekora-Upper.png'},
+{name: 'Shishiro Botan', portrait: 'images/fighters/portraits/Shishiro Botan Portrait.png', upper: 'images/fighters/upperbody/Shishiro-Botan-Upper.png'}
 ];
 
 const random = () => {
@@ -51,27 +51,19 @@ const Unselect = () => {
     clearDisplay(display1[2], display1[1]);
     clearDisplay(display2[2], display2[1]);
 }
-const createYesButton = () => {
-    let yesButton = document.createElement('button');
-    yesButton.setAttribute('id', 'start');
-    yesButton.innerText = 'Start';
-    yesButton.addEventListener('click', function(){
+const overlayInput = (event) =>{
+    if (event.key === 'Enter'){
         alert('End of Demonstration!');
         location.reload();
-    });
-    return yesButton;
-}
-const createNoButton = (elem) => {
-    let noButton = document.createElement('button');
-    noButton.setAttribute('id', 'goBack')
-    noButton.innerText = 'Go back';
-    noButton.addEventListener('click', function(){
+    } else if (event.key === 'Backspace'){
         time = 60;
-        elem.remove();
+        document.querySelector('.overlay').remove();
         Unselect();
         selectTimer();
-    });
-    return noButton;
+        window.removeEventListener('keyup', overlayInput);
+        body.style.pointerEvents = 'auto';
+    }
+    // an alert for an input that isn't any of the above is unneccesarry    
 }
 const previewFighter = (item) => {
     let fighterImg = display1[2];
@@ -91,9 +83,11 @@ const selectFighter = (elem, iconNumber) => {
     populateDisplay(display2[2], cpu, display2[1]);
     clearInterval(clock);
     setTimeout(readyPrompt, 300);
+    body.style.pointerEvents = 'none';
 }
 const displayScreen = () => {
     bgm.play();
+    bgm.volume = 0.5;
     document.querySelector('.getStarted').remove();
     for (let i = 0; i < fighters.length; i++){
         let img = document.createElement('img');
@@ -113,13 +107,13 @@ const displayScreen = () => {
 const readyPrompt = () => {
     let overlay = document.createElement('div');
     let ready = document.createElement('h1');
-    createYesButton();
-    createNoButton();
-    ready.innerText = 'Are You Ready?';
-    overlay.append(ready, createYesButton(), createNoButton(overlay));
+    window.addEventListener('keyup', overlayInput);
+    ready.innerText = 'Are You Ready? No (Backspace) Yes (Enter)';
+    overlay.append(ready);
     overlay.setAttribute('class', 'overlay');
     body.appendChild(overlay);
 }
+// this forces the user to interact with the DOM so the bgm can play without error
 const getStarted = () => {
     let begin = document.createElement('div');
     begin.setAttribute('class', 'getStarted');
