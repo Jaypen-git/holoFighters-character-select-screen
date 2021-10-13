@@ -8,9 +8,14 @@ let time = 60;
 let bgm = document.querySelector('#bgm');
 bgm.loop = true;
 
-let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokino Sora Portrait.png', upper: 'images/fighters/upperbody/Tokino-Sora-Upper.png'}, 
-{name: 'Usada Pekora', portrait: 'images/fighters/portraits/Usada Pekora Portrait.png', upper: 'images/fighters/upperbody/Usada-Pekora-Upper.png'},
-{name: 'Shishiro Botan', portrait: 'images/fighters/portraits/Shishiro Botan Portrait.png', upper: 'images/fighters/upperbody/Shishiro-Botan-Upper.png'}
+let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokino Sora Portrait.png', full: 'images/fighters/fullBody/Tokino-Sora-Full.png'}, 
+{name: 'Usada Pekora', portrait: 'images/fighters/portraits/Usada Pekora Portrait.png', full: 'images/fighters/fullBody/Usada-Pekora-Full.png'},
+{name: 'Shishiro Botan', portrait: 'images/fighters/portraits/Shishiro Botan Portrait.png', full: 'images/fighters/fullBody/Shishiro-Botan-Full.png'},
+{name: 'Houshou Marine', portrait: 'images/fighters/portraits/Houshou-Marine-Portrait.png', full: 'images/fighters/fullBody/Houshou-Marine-Full.png'},
+{name: 'Inugami Korone', portrait: 'images/fighters/portraits/Inugami-Korone-Portrait.png', full: 'images/fighters/fullBody/Inugami-Korone-Full.png'},
+{name: 'Shirakami Fubuki', portrait: 'images/fighters/portraits/Shirakami-Fubuki-Portrait.png', full: 'images/fighters/fullBody/Shirakami-Fubuki-Full.png'},
+{name: 'Kiryu Coco', portrait: 'images/fighters/portraits/Kiryu-Coco-Portrait.png', full: 'images/fighters/fullBody/Kiryu-Coco-Full.png'},
+{name: 'Hoshimachi Suisei', portrait: 'images/fighters/portraits/Hoshimachi-Suisei-Portrait.png', full: 'images/fighters/fullBody/Hoshimachi-Suisei-Full.png'}
 ];
 
 const random = () => {
@@ -35,7 +40,7 @@ const clearDisplay = (img, fighterName) => {
     fighterName.innerText = '';
 }
 const populateDisplay = (player, fighter, fighterName) => {
-    player.setAttribute('src', fighter.upper);
+    player.setAttribute('src', fighter.full);
     player.setAttribute('class', 'upperFighter')
     player.setAttribute('alt', fighter.name);
     fighterName.style.display = 'block';
@@ -68,7 +73,7 @@ const overlayInput = (event) =>{
 const previewFighter = (item) => {
     let fighterImg = display1[2];
     fighterImg.classList.add('preview');
-    fighterImg.setAttribute('src', item.upper);
+    fighterImg.setAttribute('src', item.full);
     display1[1].innerText = item.name;
 }
 const selectFighter = (elem, iconNumber) => {
@@ -108,7 +113,7 @@ const readyPrompt = () => {
     let overlay = document.createElement('div');
     let ready = document.createElement('h1');
     window.addEventListener('keyup', overlayInput);
-    ready.innerText = 'Are You Ready? No (Backspace) Yes (Enter)';
+    ready.innerHTML = 'Are You Ready?<br> No (Backspace) Yes (Enter)';
     overlay.append(ready);
     overlay.setAttribute('class', 'overlay');
     body.appendChild(overlay);
