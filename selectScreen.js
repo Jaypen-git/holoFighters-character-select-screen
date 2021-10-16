@@ -7,6 +7,7 @@ let timer = document.querySelector('.timer');
 let time = 60;
 let bgm = document.querySelector('#bgm');
 bgm.loop = true;
+let currentPlayer = 1;
 
 let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokino Sora Portrait.png', full: 'images/fighters/fullBody/Tokino-Sora-Full.png'}, 
 {name: 'Usada Pekora', portrait: 'images/fighters/portraits/Usada Pekora Portrait.png', full: 'images/fighters/fullBody/Usada-Pekora-Full.png'},
@@ -26,6 +27,7 @@ const selectTimer = () => {
         time--;
         if (time < 0){
             clearInterval(clock);
+            selectFighter(fighters[random()], random());
             selectFighter(fighters[random()], random());
         } else {
             timer.innerText = time;
@@ -49,8 +51,8 @@ const populateDisplay = (player, fighter, fighterName) => {
 const Unselect = () => {
     let icons = document.querySelectorAll('img');
     for (let i = 0; i < icons.length; i++){
-        icons[i].classList.remove('cpuSelected');
-        icons[i].classList.remove('selected');
+        icons[i].classList.remove('player2selected');
+        icons[i].classList.remove('player1selected');
     }
     // clear both displays
     clearDisplay(display1[2], display1[1]);
@@ -67,28 +69,37 @@ const overlayInput = (event) =>{
         selectTimer();
         window.removeEventListener('keyup', overlayInput);
         body.style.pointerEvents = 'auto';
+        currentPlayer = 1;
     }
     // an alert for an input that isn't any of the above is unneccesarry    
 }
 const previewFighter = (item) => {
-    let fighterImg = display1[2];
-    fighterImg.classList.add('preview');
-    fighterImg.setAttribute('src', item.full);
-    display1[1].innerText = item.name;
+    if (currentPlayer === 1){
+        let fighterImg = display1[2];
+        fighterImg.classList.add('preview');
+        fighterImg.setAttribute('src', item.full);
+        display1[1].innerText = item.name;
+    } else if (currentPlayer === 2){
+        let fighterImg = display2[2];
+        fighterImg.classList.add('preview');
+        fighterImg.setAttribute('src', item.full);
+        display2[1].innerText = item.name;
+    }
+
 }
 const selectFighter = (elem, iconNumber) => {
-    Unselect();
     let playerIcon = document.getElementById(iconNumber);
-    playerIcon.classList.add('selected');
-    populateDisplay(display1[2], elem, display1[1]); // you can't pass a parameter to another function
-    let value = random();
-    let cpu = fighters[value];
-    let cpuIcon = document.getElementById(value);
-    cpuIcon.classList.add('cpuSelected');
-    populateDisplay(display2[2], cpu, display2[1]);
-    clearInterval(clock);
-    setTimeout(readyPrompt, 300);
-    body.style.pointerEvents = 'none';
+    if (currentPlayer === 1){
+        playerIcon.classList.add('player1selected');
+        populateDisplay(display1[2], elem, display1[1]); // you can't pass a parameter to another function
+        currentPlayer = 2;
+    } else if (currentPlayer === 2){
+        playerIcon.classList.add('player2selected');
+        populateDisplay(display2[2], elem, display2[1]);
+        currentPlayer = null; // this prevents the script from removing the player2selected class
+        clearInterval(clock);
+        readyPrompt();
+    }
 }
 const displayScreen = () => {
     bgm.play();
@@ -97,26 +108,40 @@ const displayScreen = () => {
     for (let i = 0; i < fighters.length; i++){
         let img = document.createElement('img');
         img.setAttribute('src', fighters[i].portrait);
-        img.setAttribute('class', 'fighterIcon')
+        img.setAttribute('class', 'fighterIcon');
         img.setAttribute('id', i);
         img.addEventListener('click', function(){
             selectFighter(fighters[this.id], this.id);
         });
         img.addEventListener('mouseover', function(){
+            if (currentPlayer === 1){
+                img.classList.add('player1selected');
+            } else if (currentPlayer === 2) {
+                img.classList.add('player2selected');
+            }
             previewFighter(fighters[this.id]);
         });
+        img.addEventListener('mouseout', function(){
+            if (currentPlayer === 1){
+                img.classList.remove('player1selected');
+            } else if (currentPlayer === 2){
+                img.classList.remove('player2selected')
+            }
+        })
         selectScreen.appendChild(img);
     }
+    // let randomImg = document.createElement('img');
     selectTimer();
 }
 const readyPrompt = () => {
     let overlay = document.createElement('div');
     let ready = document.createElement('h1');
     window.addEventListener('keyup', overlayInput);
-    ready.innerHTML = 'Are You Ready?<br> No (Backspace) Yes (Enter)';
+    ready.innerHTML = 'Are You Ready?<span class="readyInput"><span>No (Backspace)</span><span>Yes (Enter)</span></span>';
     overlay.append(ready);
     overlay.setAttribute('class', 'overlay');
     body.appendChild(overlay);
+    body.style.pointerEvents = 'none';
 }
 // this forces the user to interact with the DOM so the bgm can play without error
 const getStarted = () => {

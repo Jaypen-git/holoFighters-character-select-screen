@@ -46,12 +46,11 @@ body {
     margin: 0 5px;
 }
 #selectScreen {
+    align-self: center;
     background-color: rgba(0, 0, 0, .5);
     flex: 4;
-    height: 32vh;
     order: 1;
     text-align: center;
-    width: 100vw;
     z-index: 1;
 }
 .timer {
@@ -64,7 +63,7 @@ body {
 .fighter {
     flex: 5;
     height: 84vh;
-    width: 24vw;
+    margin: 0 10px;
 }
 .fighterName {
     color: #DAFCFF;
@@ -74,7 +73,7 @@ body {
     margin: 0 auto;
     padding: 5px 5px;
     text-align: center;
-    width: 24vw;
+    width: 80%;
     z-index: 1;
 }
 .fighterName h1{
@@ -96,13 +95,10 @@ body {
     height: 70px;
     margin: 10px;
 }
-.fighterIcon:hover{
+.player1selected {
     border: 5px solid rgb(107, 220, 255);
 }
-.selected, .selected:hover {
-    border: 5px solid rgb(107, 220, 255);
-}
-.cpuSelected{
+.player2selected {
     border: 5px solid rgb(255, 142, 240);
 }
 .upperFighter {
@@ -134,15 +130,13 @@ body {
     margin: 20px;
     text-align: center;
 }
-.overlay button {
-    background: none;
-    border: none;
-    font-size: 30px;
-    margin: 0 70px;
+.readyInput {
+    font-size: 40px;
+    display: block;
+    margin: 10px 0;
 }
-.overlay button:hover{
-    color: #FF6161;
-    cursor: pointer;
+.readyInput span {
+    margin: 0 30px;
 }
 @media only screen and (min-height: 770px) {
     body {
