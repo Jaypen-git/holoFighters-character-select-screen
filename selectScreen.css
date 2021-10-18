@@ -13,7 +13,6 @@
 body {
     background-image: url(images/Background.png);
     background-repeat: no-repeat;
-    /* height: 100vh; */
     margin: 0;
 }
 .getStarted {
@@ -48,7 +47,10 @@ body {
 #selectScreen {
     align-self: center;
     background-color: rgba(0, 0, 0, .5);
+    display: grid;
     flex: 4;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     order: 1;
     text-align: center;
     z-index: 1;
@@ -73,7 +75,7 @@ body {
     margin: 0 auto;
     padding: 5px 5px;
     text-align: center;
-    width: 80%;
+    width: 90%;
     z-index: 1;
 }
 .fighterName h1{
@@ -95,6 +97,11 @@ body {
     height: 70px;
     margin: 10px;
 }
+.randomButton {
+    display: block;
+    margin: 10px auto;
+    grid-column: span 2/4;
+}
 .player1selected {
     border: 5px solid rgb(107, 220, 255);
 }
@@ -105,7 +112,7 @@ body {
     bottom: 20px;
     display: block;
     margin: 0 auto;
-    max-height: 84vh;
+    max-height: 100%;
     position: relative;
 }
 .preview {
