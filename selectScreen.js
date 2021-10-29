@@ -16,7 +16,11 @@ let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokin
 {name: 'Inugami Korone', portrait: 'images/fighters/portraits/Inugami-Korone-Portrait.png', full: 'images/fighters/fullBody/Inugami-Korone-Full.png'},
 {name: 'Shirakami Fubuki', portrait: 'images/fighters/portraits/Shirakami-Fubuki-Portrait.png', full: 'images/fighters/fullBody/Shirakami-Fubuki-Full.png'},
 {name: 'Kiryu Coco', portrait: 'images/fighters/portraits/Kiryu-Coco-Portrait.png', full: 'images/fighters/fullBody/Kiryu-Coco-Full.png'},
-{name: 'Hoshimachi Suisei', portrait: 'images/fighters/portraits/Hoshimachi-Suisei-Portrait.png', full: 'images/fighters/fullBody/Hoshimachi-Suisei-Full.png'}
+{name: 'Hoshimachi Suisei', portrait: 'images/fighters/portraits/Hoshimachi-Suisei-Portrait.png', full: 'images/fighters/fullBody/Hoshimachi-Suisei-Full.png'},
+{name: 'Sakura Miko', portrait: 'images/fighters/portraits/Sakura-Miko-Portrait.png', full: 'images/fighters/fullBody/Sakura-Miko-Full.png'},
+{name: 'Omaru Polka', portrait: 'images/fighters/portraits/Omaru-Polka-Portrait.png', full: 'images/fighters/fullBody/Omaru-Polka-Full.png'},
+{name: 'Akai Haato', portrait: 'images/fighters/portraits/Akai-Haato-Portrait.png', full: 'images/fighters/fullBody/Akai-Haato-Full.png'},
+{name: 'Amane Kanata', portrait: 'images/fighters/portraits/Amane-Kanata-Portrait.png', full: 'images/fighters/fullBody/Amane-Kanata-Full.png'}
 ];
 
 const random = () => {
@@ -26,9 +30,11 @@ const selectTimer = () => {
     function countDown(){
         time--;
         if (time < 0){
+            let player1 = random();
+            let player2 = random();
             clearInterval(clock);
-            selectFighter(fighters[random()], random());
-            selectFighter(fighters[random()], random());
+            selectFighter(fighters[player1], player1);
+            selectFighter(fighters[player2], player2);
         } else {
             timer.innerText = time;
         }
@@ -165,7 +171,6 @@ const displayScreen = () => {
         });
         selectScreen.appendChild(img);
     }
-    
     randomFighter();
     selectTimer();
 }
