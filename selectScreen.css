@@ -18,18 +18,18 @@ body {
 .getStarted {
     background-color: #000;
     height: 100vh;
+    display: flex;
+    justify-content: center;
     position: absolute;
+    text-align: center;
     top: 0;
     width: 100vw;
     z-index: 999;
 }
 .getStarted h1 {
+    align-self: center;
     color: #fff;
-    display: block;
     font-size: 60px;
-    margin: 0 auto;
-    position: relative;
-    top: 35vh;
     width: 380px;
 }
 .getStarted h1:hover {
@@ -52,7 +52,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     order: 1;
-    text-align: center;
+    /* text-align: center; */
     z-index: 1;
 }
 .timer {
@@ -94,7 +94,7 @@ body {
     border: 5px solid white;
     border-radius: 25% 0;
     background-color: rgb(212, 232, 245);
-    height: 70px;
+    height: 80px;
     margin: 10px;
 }
 .randomButton {
@@ -116,6 +116,7 @@ body {
     position: relative;
 }
 .preview {
+    height: 90%;
     opacity: 0.5;
 }
 .overlay {
