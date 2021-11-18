@@ -52,8 +52,32 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     order: 1;
-    /* text-align: center; */
+    padding: 5px;
     z-index: 1;
+}
+.iconContainer {
+    margin: 0;
+    position: relative;
+}
+.iconContainer span {
+    border-radius: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    padding: 0 2px;
+    position: absolute;
+}
+.p1 {
+    -webkit-text-stroke: 0.5px #063F5C;
+    color: rgb(107, 220, 255);
+    top: 11px;
+    left: 63px;
+}
+.p2 {
+    -webkit-text-stroke: 0.5px rgb(99, 57, 93);
+    color: rgb(255, 142, 240);
+    bottom: 16px;
+    right: 63px;
 }
 .timer {
     display: block;

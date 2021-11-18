@@ -22,7 +22,9 @@ let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokin
 {name: 'Akai Haato', portrait: 'images/fighters/portraits/Akai-Haato-Portrait.png', full: 'images/fighters/fullBody/Akai-Haato-Full.png'},
 {name: 'Amane Kanata', portrait: 'images/fighters/portraits/Amane-Kanata-Portrait.png', full: 'images/fighters/fullBody/Amane-Kanata-Full.png'},
 {name: 'Robocosan', portrait: 'images/fighters/portraits/Robocosan-Portrait.png', full: 'images/fighters/fullBody/Robocosan-Full.png'},
-{name: 'Shirogane Noel', portrait: 'images/fighters/portraits/Shirogane-Noel-Portrait.png', full: 'images/fighters/fullBody/Shirogane-Noel-Full.png'}
+{name: 'Shirogane Noel', portrait: 'images/fighters/portraits/Shirogane-Noel-Portrait.png', full: 'images/fighters/fullBody/Shirogane-Noel-Full.png'},
+{name: 'Oozora Subaru', portrait: 'images/fighters/portraits/Oozora-Subaru-Portrait.png', full: 'images/fighters/fullBody/Oozora-Subaru-Full.png'},
+{name: 'Aki Rosenthal', portrait: 'images/fighters/portraits/Aki-Rosenthal-Portrait.png', full: 'images/fighters/fullBody/Aki-Rosenthal-Full.png'}
 ];
 
 const random = () => {
@@ -62,6 +64,10 @@ const Unselect = () => {
         icons[i].classList.remove('player2selected');
         icons[i].classList.remove('player1selected');
     }
+    let indicators = document.querySelectorAll('.iconContainer span');
+    for (let i = 0; i < indicators.length; i++){
+        indicators[i].style.display = 'none';
+    }
     // clear both displays
     clearDisplay(display1[2], display1[1]);
     clearDisplay(display2[2], display2[1]);
@@ -88,6 +94,13 @@ const randomFighter = () => {
     img.classList.add('randomButton');
     img.addEventListener('click', function(){
         let pick = random();
+        if (currentPlayer === 1){
+            // get the img that has the id of pick value, then grab the parent element (iconContainer),
+            // then pick the child element with the class of p1
+            document.getElementById(pick).parentElement.querySelector('.p1').style.display = 'block';
+        } else if (currentPlayer === 2){
+            document.getElementById(pick).parentElement.querySelector('.p2').style.display = 'block';
+        }
         selectFighter(fighters[pick], pick);
         // instead of trying to get record of the dom element, just use "this"
         if (this.classList.contains('player1selected')){ // check if this icon has this class
@@ -131,7 +144,7 @@ const previewFighter = (item) => {
 
 }
 const selectFighter = (elem, iconNumber) => {
-    let playerIcon = document.getElementById(iconNumber);
+    let playerIcon = document.getElementById(iconNumber); // queryselector doesn't allow for id unless you use brackets ie [id='0']
     if (currentPlayer === 1){
         playerIcon.classList.add('player1selected');
         populateDisplay(display1[2], elem, display1[1]); // you can't pass a parameter to another function
@@ -149,29 +162,53 @@ const displayScreen = () => {
     bgm.volume = 0.5;
     document.querySelector('.getStarted').remove();
     for (let i = 0; i < fighters.length; i++){
+        // create an element for player indication
+        // create a div to store image and player indicator
+        let iconContainer = document.createElement('div');
+        iconContainer.classList.add('iconContainer');
+        let player1Indicator = document.createElement('span');
+        player1Indicator.innerText = 'P1';
+        player1Indicator.classList.toggle('p1');
+        player1Indicator.style.display = 'none';
+        let player2Indicator = document.createElement('span');
+        player2Indicator.innerText = 'P2';
+        player2Indicator.classList.toggle('p2');
+        player2Indicator.style.display = 'none';
         let img = document.createElement('img');
         img.setAttribute('src', fighters[i].portrait);
         img.setAttribute('class', 'fighterIcon');
         img.setAttribute('id', i);
         img.addEventListener('click', function(){
             selectFighter(fighters[this.id], this.id);
+            if (currentPlayer === 1){
+                player1Indicator.style.display = 'block';
+            } else if (currentPlayer === 2){
+                player2Indicator.style.display = 'block';
+            }
         });
         img.addEventListener('mouseover', function(){
             if (currentPlayer === 1){
+                player1Indicator.style.display = 'block';
                 img.classList.add('player1selected');
-            } else if (currentPlayer === 2) {
+            } else if (currentPlayer === 2){
+                player2Indicator.style.display = 'block';
                 img.classList.add('player2selected');
             }
             previewFighter(fighters[this.id]);
         });
         img.addEventListener('mouseout', function(){
             if (currentPlayer === 1){
+                player1Indicator.style.display = 'none';
                 img.classList.remove('player1selected');
             } else if (currentPlayer === 2){
-                img.classList.remove('player2selected')
+                player2Indicator.style.display = 'none';
+                img.classList.remove('player2selected');
             }
         });
-        selectScreen.appendChild(img);
+        iconContainer.appendChild(player1Indicator);
+        iconContainer.appendChild(player2Indicator);
+        iconContainer.appendChild(img);
+        selectScreen.appendChild(iconContainer);
     }
     randomFighter();
     selectTimer();
