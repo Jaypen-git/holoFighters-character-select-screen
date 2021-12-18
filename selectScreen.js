@@ -53,7 +53,7 @@ const clearDisplay = (img, fighterName) => {
 }
 const populateDisplay = (player, fighter, fighterName) => {
     player.setAttribute('src', fighter.full);
-    player.setAttribute('class', 'upperFighter')
+    player.setAttribute('class', 'fullPicture')
     player.setAttribute('alt', fighter.name);
     fighterName.style.display = 'block';
     fighterName.innerText = fighter.name;
@@ -90,7 +90,7 @@ const overlayInput = (event) =>{
 const randomFighter = () => {
     let img = document.createElement('img');
     img.setAttribute('src', 'images/fighters/portraits/Random.png');
-    img.classList.add('fighterIcon');
+    img.classList.add('icon');
     img.classList.add('randomButton');
     img.addEventListener('click', function(){
         let pick = random();
@@ -176,7 +176,7 @@ const displayScreen = () => {
         player2Indicator.style.display = 'none';
         let img = document.createElement('img');
         img.setAttribute('src', fighters[i].portrait);
-        img.setAttribute('class', 'fighterIcon');
+        img.setAttribute('class', 'icon');
         img.setAttribute('id', i);
         img.addEventListener('click', function(){
             selectFighter(fighters[this.id], this.id);
