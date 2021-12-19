@@ -91,7 +91,7 @@ body {
     height: 84vh;
     margin: 0 10px;
 }
-.fighterName {
+.name {
     color: #DAFCFF;
     background-color: #063F5C;
     display: block;
@@ -114,7 +114,7 @@ body {
 #player2 img {
     transform: scaleX(-1);
 }
-.fighterIcon {
+.icon {
     border: 5px solid white;
     border-radius: 25% 0;
     background-color: rgb(212, 232, 245);
@@ -132,7 +132,7 @@ body {
 .player2selected {
     border: 5px solid rgb(255, 142, 240);
 }
-.upperFighter {
+.fullPicture {
     bottom: 20px;
     display: block;
     margin: 0 auto;
