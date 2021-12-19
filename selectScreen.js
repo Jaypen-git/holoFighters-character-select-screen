@@ -1,4 +1,3 @@
-// Store fighter displays and it's components in an array for ease of access
 let body = document.querySelector('body');
 let display1 = [document.querySelector('#player1'), document.querySelector('#fighter1'), document.querySelector('#select1')];
 let display2 = [document.querySelector('#player2'), document.querySelector('#fighter2'), document.querySelector('#select2')];
@@ -6,11 +5,10 @@ let selectScreen = document.querySelector('#selectScreen');
 let timer = document.querySelector('.timer');
 let time = 60;
 let bgm = document.querySelector('#bgm');
-bgm.loop = true; // loop the background music
+bgm.loop = true;
 let currentPlayer = 1;
-// List fighters and their respective images
+// List fighters and store fighter information, such as name or pictures, in an object for ease of access
 let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokino-Sora-Portrait.png', full: 'images/fighters/fullBody/Tokino-Sora-Full.png'},
-// Store fighter information in an object for ease of access
 {name: 'Usada Pekora', portrait: 'images/fighters/portraits/Usada-Pekora-Portrait.png', full: 'images/fighters/fullBody/Usada-Pekora-Full.png'},
 {name: 'Shishiro Botan', portrait: 'images/fighters/portraits/Shishiro-Botan-Portrait.png', full: 'images/fighters/fullBody/Shishiro-Botan-Full.png'},
 {name: 'Houshou Marine', portrait: 'images/fighters/portraits/Houshou-Marine-Portrait.png', full: 'images/fighters/fullBody/Houshou-Marine-Full.png'},
@@ -29,49 +27,48 @@ let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokin
 ];
 //Function to return a random fighter
 const random = () => {
-    return Math.floor(Math.random()*fighters.length); //This returns a random index in the array "fighters"
+    return Math.floor(Math.random()*fighters.length); // This returns a random index in the array "fighters"
 }
 const selectTimer = () => {
-    // create a function to decrease timer by 1 second until the timer reaches 0
     function countDown(){
         time--;
-        if (time < 0){ // if the timer reaches 0
-            let player1 = random(); // randomly pick fighters for the two players
+        if (time < 0){
+            let player1 = random();
             let player2 = random();
             clearInterval(clock);
             selectFighter(fighters[player1], player1);
             selectFighter(fighters[player2], player2);
         } else {
-            timer.innerText = time; // if not, display how much time is left
+            timer.innerText = time;
         }
     }
-    return clock = setInterval(countDown, 1000); // run the "countDown" function every 1 second
+    return clock = setInterval(countDown, 1000);
 }
-// efficiently clear a fighter display and choose which one you want do delete
+// Clears a fighter display and choose which one you want do delete
 const clearDisplay = (img, fighterName) => {
-    // remove the "src" and "alt" attributes
+
     img.removeAttribute('src');
     img.removeAttribute('alt');
-    fighterName.innerText = ''; // make the fighter name text empty
+    fighterName.innerText = '';
 }
-// write a function to set to display picked fighter's name and picture
+// This displays the picked fighter's name and picture
 const populateDisplay = (player, fighter, fighterName) => {
-    player.setAttribute('src', fighter.full); // access fighter's full body image from object attribute
-    player.setAttribute('class', 'fullPicture') // apply styles from class "fullPicture"
-    player.setAttribute('alt', fighter.name); // add alternate text for image in case image doesn't work
+    player.setAttribute('src', fighter.full); // accessing the "fighter" objects "full" attribute allows me to access the full body image easily
+    player.setAttribute('class', 'fullPicture')
+    player.setAttribute('alt', fighter.name);
     fighterName.style.display = 'block';
-    fighterName.innerText = fighter.name; // take name attribute from fighter object and display it
+    fighterName.innerText = fighter.name;
 }
-// make a function to unselect fighters
+// This function is used to deselect all fighters
 const Unselect = () => {
-    let icons = document.querySelectorAll('img'); // grab every img tag
-    for (let i = 0; i < icons.length; i++){ // for each img, remove the class "player1selected" and "player2selected"
+    let icons = document.querySelectorAll('img');
+    for (let i = 0; i < icons.length; i++){
         icons[i].classList.remove('player2selected');
         icons[i].classList.remove('player1selected');
     }
-    let indicators = document.querySelectorAll('.iconContainer span'); //grab every span tag in an element with the "iconContainer" class
-    for (let i = 0; i < indicators.length; i++){ // for each indicator (the span tag)
-        indicators[i].style.display = 'none'; // hide the indicator element
+    let indicators = document.querySelectorAll('.iconContainer span');
+    for (let i = 0; i < indicators.length; i++){
+        indicators[i].style.display = 'none';
     }
     // clear both displays
     clearDisplay(display1[2], display1[1]);
@@ -81,15 +78,15 @@ const Unselect = () => {
 const overlayInput = (event) =>{
     if (event.key === 'Enter'){ // check if the user pressed enter key
         alert('End of Demonstration!');
-        location.reload(); // end the demo and reload the page
+        location.reload();
     } else if (event.key === 'Backspace'){ // check if the user pressed backspace key
-        time = 60; // set the timer back to 60
-        document.querySelector('.overlay').remove(); // remove the overlay
-        Unselect(); // unselect all characters
-        selectTimer(); // run the timer
-        window.removeEventListener('keyup', overlayInput); // stop listening for pressed keys
-        body.style.pointerEvents = 'auto'; // set pointer events to default value (auto)
-        currentPlayer = 1; // set the current player to player 1
+        time = 60;
+        document.querySelector('.overlay').remove();
+        Unselect();
+        selectTimer();
+        window.removeEventListener('keyup', overlayInput);
+        body.style.pointerEvents = 'auto';
+        currentPlayer = 1;
     }
     // an alert for an input that isn't any of the above is unneccesary    
 }
@@ -110,24 +107,24 @@ const randomFighter = () => {
         }
         selectFighter(fighters[pick], pick);
         // instead of trying to get record of the dom element, just use "this"
-        if (this.classList.contains('player1selected')){ // check if this icon has this class
-            this.classList.remove('player1selected'); // if it does, then remove the "player1selected" class
+        if (this.classList.contains('player1selected')){
+            this.classList.remove('player1selected');
         } else if (this.classList.contains('player2selected')){
             this.classList.remove('player2selected');
         }
     });
-    img.addEventListener('mouseover', function(){ // this is just listening for mouse hovering
+    img.addEventListener('mouseover', function(){
         if (currentPlayer === 1){
             img.classList.add('player1selected');
             display1[1].innerText = 'Random';
-            display1[2].src = ''; // because random isn't a fighter, there's no need to display an image
+            display1[2].src = '';
         } else if (currentPlayer === 2) {
             img.classList.add('player2selected');
             display2[1].innerText = 'Random';
             display2[2].src = '';
         }
     });
-    img.addEventListener('mouseout', function(){ // this is listening for a mouse exits hovering an element
+    img.addEventListener('mouseout', function(){
         if (currentPlayer === 1){
             img.classList.remove('player1selected');
         } else if (currentPlayer === 2){
@@ -140,9 +137,9 @@ const randomFighter = () => {
 const previewFighter = (item) => {
     if (currentPlayer === 1){
         let fighterImg = display1[2];
-        fighterImg.classList.add('preview'); // add the class "preview" to the "fighterImg" element
-        fighterImg.setAttribute('src', item.full); // grab the "full" attribute from a fighter object
-        display1[1].innerText = item.name; // grab the "name" attribute from a fighter object
+        fighterImg.classList.add('preview');
+        fighterImg.setAttribute('src', item.full);
+        display1[1].innerText = item.name;
     } else if (currentPlayer === 2){
         let fighterImg = display2[2];
         fighterImg.classList.add('preview');
@@ -177,7 +174,7 @@ const displayScreen = () => {
         let player1Indicator = document.createElement('span');
         player1Indicator.innerText = 'P1';
         player1Indicator.classList.toggle('p1');
-        player1Indicator.style.display = 'none';
+        player1Indicator.style.display = 'none'; // the indicators shouldn't show unless an icon is hovered
         let player2Indicator = document.createElement('span');
         player2Indicator.innerText = 'P2';
         player2Indicator.classList.toggle('p2');
