@@ -32,7 +32,7 @@ const random = () => {
 const selectTimer = () => {
     function countDown(){
         time--;
-        if (time < 0){
+        if (time === 0){
             let player1 = random();
             let player2 = random();
             clearInterval(clock);
@@ -60,7 +60,7 @@ const populateDisplay = (player, fighter, fighterName) => {
     fighterName.innerText = fighter.name;
 }
 // This function is used to deselect all fighters
-const Unselect = () => {
+const unselectAll = () => {
     let icons = document.querySelectorAll('img');
     for (let i = 0; i < icons.length; i++){
         icons[i].classList.remove('player2selected');
@@ -74,6 +74,24 @@ const Unselect = () => {
     clearDisplay(display1[2], display1[1]);
     clearDisplay(display2[2], display2[1]);
 }
+const unselect = (event) => {
+    let icons = document.querySelectorAll('img');
+    let indicators = document.querySelectorAll('span');
+    if (currentPlayer === 2){
+        if (event.key ===  'Backspace'){
+            for (let i = 0; i < icons.length; i++){
+                icons[i].classList.remove('player1selected');
+                icons[i].classList.remove('player2selected');
+            }
+            for (let i = 0; i < indicators.length; i++){
+                indicators[i].style.display = 'none';
+            }
+            currentPlayer = 1;
+            clearDisplay(display1[2], display1[1]);
+            clearDisplay(display2[2], display2[1]);
+        }
+    }
+}
 // write function to end demonstration or continue demonstration
 const overlayInput = (event) =>{
     if (event.key === 'Enter'){ // check if the user pressed enter key
@@ -82,7 +100,7 @@ const overlayInput = (event) =>{
     } else if (event.key === 'Backspace'){ // check if the user pressed backspace key
         time = 60;
         document.querySelector('.overlay').remove();
-        Unselect();
+        unselectAll();
         selectTimer();
         window.removeEventListener('keyup', overlayInput);
         body.style.pointerEvents = 'auto';
@@ -148,15 +166,20 @@ const previewFighter = (item) => {
     }
 
 }
-const selectFighter = (elem, iconNumber) => {
-    let playerIcon = document.getElementById(iconNumber); // queryselector doesn't allow for id unless you use brackets ie [id='0']
+const selectFighter = (elem, fighter) => {
+    let playerIcon = document.getElementById(fighter); // queryselector doesn't allow for number id unless you use brackets ie [id='0'] or escape based on it's unicode point
+    let iconContainer = playerIcon.parentElement // this is important for later
     if (currentPlayer === 1){
+        let player1Indicator = iconContainer.querySelector('.p1') // needed the parent element (iconContainer) to grab the p1/p2 span
         playerIcon.classList.add('player1selected');
-        populateDisplay(display1[2], elem, display1[1]); // you can't pass a parameter to another function
+        populateDisplay(display1[2], elem, display1[1]);
+        player1Indicator.style.display = 'block';
         currentPlayer = 2;
     } else if (currentPlayer === 2){
+        let player2Indicator = iconContainer.querySelector('.p2');
         playerIcon.classList.add('player2selected');
         populateDisplay(display2[2], elem, display2[1]);
+        player2Indicator.style.display = 'block';
         currentPlayer = null; // this prevents the script from removing the player2selected class unexpectedly
         clearInterval(clock);
         readyPrompt();
@@ -228,14 +251,7 @@ const readyPrompt = () => {
     body.appendChild(overlay);
     body.style.pointerEvents = 'none';
 }
+window.addEventListener('keyup', unselect);
 // this forces the user to interact with the DOM so the bgm can play without error
-const getStarted = () => {
-    let begin = document.createElement('div');
-    begin.setAttribute('class', 'getStarted');
-    let message = document.createElement('h1');
-    message.innerText = 'Click here to get started!'
-    message.addEventListener('click', displayScreen);
-    begin.appendChild(message);
-    body.appendChild(begin);
-}
-getStarted();
+let message = document.querySelector('.getStarted h1');
+message.addEventListener('click', displayScreen);
