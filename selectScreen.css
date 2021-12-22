@@ -17,8 +17,10 @@ body {
 }
 .getStarted {
     background-color: #000;
+    color: #fff;
     height: 100vh;
     display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
     position: absolute;
     text-align: center;
@@ -28,13 +30,15 @@ body {
 }
 .getStarted h1 {
     align-self: center;
-    color: #fff;
     font-size: 60px;
     width: 380px;
 }
 .getStarted h1:hover {
     color: #59bdff;
     cursor: pointer;
+}
+.getStarted h2 {
+    font-size: 24px;
 }
 .container {
     display: flex;
@@ -155,7 +159,6 @@ body {
 }
 .overlay * {
     color: #fff;
-
 }
 .overlay h1{
     font-size: 60px;
