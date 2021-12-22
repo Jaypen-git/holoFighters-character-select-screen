@@ -59,22 +59,7 @@ const populateDisplay = (player, fighter, fighterName) => {
     fighterName.style.display = 'block';
     fighterName.innerText = fighter.name;
 }
-// This function is used to deselect all fighters
-const unselectAll = () => {
-    let icons = document.querySelectorAll('img');
-    for (let i = 0; i < icons.length; i++){
-        icons[i].classList.remove('player2selected');
-        icons[i].classList.remove('player1selected');
-    }
-    let indicators = document.querySelectorAll('.iconContainer span');
-    for (let i = 0; i < indicators.length; i++){
-        indicators[i].style.display = 'none';
-    }
-    // clear both displays
-    clearDisplay(display1[2], display1[1]);
-    clearDisplay(display2[2], display2[1]);
-}
-const unselect = (event) => {
+const deselect = (event) => {
     let icons = document.querySelectorAll('img');
     let indicators = document.querySelectorAll('span');
     if (currentPlayer === 2){
@@ -100,11 +85,19 @@ const overlayInput = (event) =>{
     } else if (event.key === 'Backspace'){ // check if the user pressed backspace key
         time = 60;
         document.querySelector('.overlay').remove();
-        unselectAll();
+        let icons = document.querySelectorAll('img');
+        for (let i = 0; i < icons.length; i++){
+            icons[i].classList.remove('player2selected');
+        }
+        let indicators = document.querySelectorAll('.iconContainer .p2');
+        for (let i = 0; i < indicators.length; i++){
+            indicators[i].style.display = 'none';
+        }
+        clearDisplay(display2[2], display2[1]);
         selectTimer();
         window.removeEventListener('keyup', overlayInput);
         body.style.pointerEvents = 'auto';
-        currentPlayer = 1;
+        currentPlayer = 2;
     }
     // an alert for an input that isn't any of the above is unneccesary    
 }
@@ -251,7 +244,7 @@ const readyPrompt = () => {
     body.appendChild(overlay);
     body.style.pointerEvents = 'none';
 }
-window.addEventListener('keyup', unselect);
+window.addEventListener('keyup', deselect);
 // this forces the user to interact with the DOM so the bgm can play without error
 let message = document.querySelector('.getStarted h1');
 message.addEventListener('click', displayScreen);
