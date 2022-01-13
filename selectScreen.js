@@ -247,4 +247,10 @@ const readyPrompt = () => {
 window.addEventListener('keyup', deselect);
 // this forces the user to interact with the DOM so the bgm can play without error
 let message = document.querySelector('.getStarted h1');
-message.addEventListener('click', displayScreen);
+if (window.matchMedia('min-height: 680px')){
+    message.addEventListener('click', displayScreen);
+    alert('desktop');
+} else {
+    window.addEventListener('click', displayScreen);
+    alert('mobile');
+}
