@@ -31,11 +31,12 @@ body {
 }
 .getStarted h1 {
     align-self: center;
-    font-size: 40px;
-    width: 380px;
+    font-size: 36px;
+    width: 350px;
 }
 .getStarted h2 {
-    font-size: 20px;
+    align-self: center;
+    font-size: 16px;
 }
 .container {
     display: flex;
