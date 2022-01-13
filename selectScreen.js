@@ -245,12 +245,13 @@ const readyPrompt = () => {
     body.style.pointerEvents = 'none';
 }
 window.addEventListener('keyup', deselect);
-// this forces the user to interact with the DOM so the bgm can play without error
+
 let message = document.querySelector('.getStarted h1');
-if (window.matchMedia('min-height: 680px')){
-    message.addEventListener('click', displayScreen);
-    alert('desktop');
+let gsListener = document.querySelector('#listener');
+// this forces the user to interact with the DOM so the bgm can play without error
+if (window.matchMedia('(max-height: 760px)').matches){ // matchMedia is a media query on JS, check if the window matches the media query
+    gsListener.innerText = 'Tap anywhere to get started!';
+    window.addEventListener('touchend', displayScreen); // touchstart didn't allow the bgm to play
 } else {
-    window.addEventListener('click', displayScreen);
-    alert('mobile');
+    message.addEventListener('click', displayScreen);
 }
