@@ -84,8 +84,8 @@ body {
 .timer {
     display: block;
     font-family: Retroica;
-    font-size: 40px; /* temp */
-    margin: 5px auto;
+    font-size: 36px; /* temp */
+    margin: 2px auto;
     width: 50px;
 }
 .fighter {
@@ -124,7 +124,7 @@ body {
     margin: 10px;
 }
 .randomButton {
-    display: block;
+    display: none;
     margin: 10px auto;
     grid-column: span 2/4;
 }
