@@ -31,11 +31,12 @@ body {
 }
 .getStarted h1 {
     align-self: center;
-    font-size: 40px;
-    width: 380px;
+    font-size: 36px;
+    width: 350px;
 }
 .getStarted h2 {
-    font-size: 20px;
+    align-self: center;
+    font-size: 16px;
 }
 .container {
     display: flex;
@@ -83,8 +84,8 @@ body {
 .timer {
     display: block;
     font-family: Retroica;
-    font-size: 40px; /* temp */
-    margin: 5px auto;
+    font-size: 36px; /* temp */
+    margin: 2px auto;
     width: 50px;
 }
 .fighter {
@@ -123,7 +124,7 @@ body {
     margin: 10px;
 }
 .randomButton {
-    display: block;
+    display: none;
     margin: 10px auto;
     grid-column: span 2/4;
 }
@@ -186,6 +187,9 @@ body {
         font-size: 60px;
         margin: 10px auto;
         width: 50px;
+    }
+    .randomButton {
+        display: block;
     }
 }
 @media only screen and (min-height: 770px) {
