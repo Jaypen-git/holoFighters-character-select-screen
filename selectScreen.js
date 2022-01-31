@@ -248,11 +248,17 @@ window.addEventListener('keyup', deselect);
 
 let message = document.querySelector('.getStarted h1');
 let gsListener = document.querySelector('#listener');
+
 // this forces the user to interact with the DOM so the bgm can play without error
-if (window.matchMedia('(max-height: 759px)').matches){ // matchMedia is a media query on JS, check if the window matches the media query
-    gsListener.innerText = 'Tap anywhere to get started!';
-    window.addEventListener('touchend', displayScreen); // touchstart didn't allow the bgm to play
-} else {
-    gsListener.innerText = 'Click here to get started!';
-    message.addEventListener('click', displayScreen);
+const windowCheck = () => {
+    if (window.matchMedia('(max-height: 759px)').matches){ // matchMedia is a media query on JS, check if the window matches the media query
+        gsListener.innerText = 'Tap anywhere to get started!';
+        window.addEventListener('touchend', displayScreen); // touchstart didn't allow the bgm to play
+    } else {
+        gsListener.innerText = 'Click here to get started!';
+        message.addEventListener('click', displayScreen);
+    }
 }
+
+window.addEventListener('resize', windowCheck);
+windowCheck();
