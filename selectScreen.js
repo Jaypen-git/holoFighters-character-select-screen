@@ -106,7 +106,6 @@ const overlayInput = (event) => {
         for (let i = 0; i < mainScreen.icons.length; i++) {
             icons[i].classList.remove('player2selected');
         }
-        let 
         for (let i = 0; i < mainScreen.player2Indicators.length; i++) {
             indicators[i].style.display = 'none';
         }

@@ -164,8 +164,10 @@ body {
 }
 .overlay {
     background-color: rgba(0, 0, 0, .8);
+    display: none;
     height: 28vh;
     left: 0;
+    margin: 0;
     position: absolute;
     text-align: center;
     bottom: 20vh;
