@@ -1,45 +1,65 @@
-let body = document.querySelector('body');
-let display1 = [document.querySelector('#player1'), document.querySelector('#fighter1'), document.querySelector('#select1')];
-let display2 = [document.querySelector('#player2'), document.querySelector('#fighter2'), document.querySelector('#select2')];
-let selectScreen = document.querySelector('#selectScreen');
-let timer = document.querySelector('.timer');
-let time = 60;
-let bgm = document.querySelector('#bgm');
-bgm.loop = true;
-let currentPlayer = 1;
 // List fighters and store fighter information, such as name or pictures, in an object for ease of access
-let fighters = [{name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokino-Sora-Portrait.png', full: 'images/fighters/fullBody/Tokino-Sora-Full.png'},
-{name: 'Usada Pekora', portrait: 'images/fighters/portraits/Usada-Pekora-Portrait.png', full: 'images/fighters/fullBody/Usada-Pekora-Full.png'},
-{name: 'Shishiro Botan', portrait: 'images/fighters/portraits/Shishiro-Botan-Portrait.png', full: 'images/fighters/fullBody/Shishiro-Botan-Full.png'},
-{name: 'Houshou Marine', portrait: 'images/fighters/portraits/Houshou-Marine-Portrait.png', full: 'images/fighters/fullBody/Houshou-Marine-Full.png'},
-{name: 'Inugami Korone', portrait: 'images/fighters/portraits/Inugami-Korone-Portrait.png', full: 'images/fighters/fullBody/Inugami-Korone-Full.png'},
-{name: 'Shirakami Fubuki', portrait: 'images/fighters/portraits/Shirakami-Fubuki-Portrait.png', full: 'images/fighters/fullBody/Shirakami-Fubuki-Full.png'},
-{name: 'Kiryu Coco', portrait: 'images/fighters/portraits/Kiryu-Coco-Portrait.png', full: 'images/fighters/fullBody/Kiryu-Coco-Full.png'},
-{name: 'Hoshimachi Suisei', portrait: 'images/fighters/portraits/Hoshimachi-Suisei-Portrait.png', full: 'images/fighters/fullBody/Hoshimachi-Suisei-Full.png'},
-{name: 'Sakura Miko', portrait: 'images/fighters/portraits/Sakura-Miko-Portrait.png', full: 'images/fighters/fullBody/Sakura-Miko-Full.png'},
-{name: 'Omaru Polka', portrait: 'images/fighters/portraits/Omaru-Polka-Portrait.png', full: 'images/fighters/fullBody/Omaru-Polka-Full.png'},
-{name: 'Akai Haato', portrait: 'images/fighters/portraits/Akai-Haato-Portrait.png', full: 'images/fighters/fullBody/Akai-Haato-Full.png'},
-{name: 'Amane Kanata', portrait: 'images/fighters/portraits/Amane-Kanata-Portrait.png', full: 'images/fighters/fullBody/Amane-Kanata-Full.png'},
-{name: 'Robocosan', portrait: 'images/fighters/portraits/Robocosan-Portrait.png', full: 'images/fighters/fullBody/Robocosan-Full.png'},
-{name: 'Shirogane Noel', portrait: 'images/fighters/portraits/Shirogane-Noel-Portrait.png', full: 'images/fighters/fullBody/Shirogane-Noel-Full.png'},
-{name: 'Oozora Subaru', portrait: 'images/fighters/portraits/Oozora-Subaru-Portrait.png', full: 'images/fighters/fullBody/Oozora-Subaru-Full.png'},
-{name: 'Aki Rosenthal', portrait: 'images/fighters/portraits/Aki-Rosenthal-Portrait.png', full: 'images/fighters/fullBody/Aki-Rosenthal-Full.png'}
+let fighters = [{ name: 'Tokino Sora', portrait: 'images/fighters/portraits/Tokino-Sora-Portrait.png', full: 'images/fighters/fullBody/Tokino-Sora-Full.png' },
+{ name: 'Usada Pekora', portrait: 'images/fighters/portraits/Usada-Pekora-Portrait.png', full: 'images/fighters/fullBody/Usada-Pekora-Full.png' },
+{ name: 'Shishiro Botan', portrait: 'images/fighters/portraits/Shishiro-Botan-Portrait.png', full: 'images/fighters/fullBody/Shishiro-Botan-Full.png' },
+{ name: 'Houshou Marine', portrait: 'images/fighters/portraits/Houshou-Marine-Portrait.png', full: 'images/fighters/fullBody/Houshou-Marine-Full.png' },
+{ name: 'Inugami Korone', portrait: 'images/fighters/portraits/Inugami-Korone-Portrait.png', full: 'images/fighters/fullBody/Inugami-Korone-Full.png' },
+{ name: 'Shirakami Fubuki', portrait: 'images/fighters/portraits/Shirakami-Fubuki-Portrait.png', full: 'images/fighters/fullBody/Shirakami-Fubuki-Full.png' },
+{ name: 'Kiryu Coco', portrait: 'images/fighters/portraits/Kiryu-Coco-Portrait.png', full: 'images/fighters/fullBody/Kiryu-Coco-Full.png' },
+{ name: 'Hoshimachi Suisei', portrait: 'images/fighters/portraits/Hoshimachi-Suisei-Portrait.png', full: 'images/fighters/fullBody/Hoshimachi-Suisei-Full.png' },
+{ name: 'Sakura Miko', portrait: 'images/fighters/portraits/Sakura-Miko-Portrait.png', full: 'images/fighters/fullBody/Sakura-Miko-Full.png' },
+{ name: 'Omaru Polka', portrait: 'images/fighters/portraits/Omaru-Polka-Portrait.png', full: 'images/fighters/fullBody/Omaru-Polka-Full.png' },
+{ name: 'Akai Haato', portrait: 'images/fighters/portraits/Akai-Haato-Portrait.png', full: 'images/fighters/fullBody/Akai-Haato-Full.png' },
+{ name: 'Amane Kanata', portrait: 'images/fighters/portraits/Amane-Kanata-Portrait.png', full: 'images/fighters/fullBody/Amane-Kanata-Full.png' },
+{ name: 'Robocosan', portrait: 'images/fighters/portraits/Robocosan-Portrait.png', full: 'images/fighters/fullBody/Robocosan-Full.png' },
+{ name: 'Shirogane Noel', portrait: 'images/fighters/portraits/Shirogane-Noel-Portrait.png', full: 'images/fighters/fullBody/Shirogane-Noel-Full.png' },
+{ name: 'Oozora Subaru', portrait: 'images/fighters/portraits/Oozora-Subaru-Portrait.png', full: 'images/fighters/fullBody/Oozora-Subaru-Full.png' },
+{ name: 'Aki Rosenthal', portrait: 'images/fighters/portraits/Aki-Rosenthal-Portrait.png', full: 'images/fighters/fullBody/Aki-Rosenthal-Full.png' }
 ];
-//Function to return a random fighter
-const random = () => {
-    return Math.floor(Math.random()*fighters.length); // This returns a random index in the array "fighters"
+
+const mainScreen = {
+    // Cannot use arrow functions for object methods
+    init: function(){
+        this.cacheDOM();
+    },
+    // keep all DOM queries in one area
+    cacheDOM: function(){
+        this.body = document.querySelector('body');
+        this.display1 = [document.querySelector('#player1'), document.querySelector('#fighter1'), document.querySelector('#select1')];
+        this.display2 = [document.querySelector('#player2'), document.querySelector('#fighter2'), document.querySelector('#select2')];
+        this.selectScreen = document.querySelector('#selectScreen');
+        this.timer = document.querySelector('.timer');
+        this.bgm = document.querySelector('#bgm');
+        this.icons = document.querySelectorAll('img');
+        this.indicators = document.querySelectorAll('span');
+        this.overlay = document.querySelector('.overlay');
+        this.icons = document.querySelectorAll('img');
+        this.player2Indicators = document.querySelectorAll('.iconContainer .p2');
+        this.getStarted = document.querySelector('.getStarted');
+        this.message = document.querySelector('.getStarted h1');
+        this.gsListener = document.querySelector('#listener');
+    }
+}
+mainScreen.init();
+const controller = {
+    time: 60,
+    currentPlayer: 1,
+    // Function to return a random fighter
+    random: () => {
+        return Math.floor(Math.random() * fighters.length); // This returns a random index in the array "fighters"
+    }
 }
 const selectTimer = () => {
     function countDown(){
-        time--;
-        if (time === 0){
+        controller.time--;
+        if (controller.time === 0){
             let player1 = random();
             let player2 = random();
             clearInterval(clock);
             selectFighter(fighters[player1], player1);
             selectFighter(fighters[player2], player2);
         } else {
-            timer.innerText = time;
+            mainScreen.timer.innerText = controller.time;
         }
     }
     return clock = setInterval(countDown, 1000);
@@ -60,44 +80,41 @@ const populateDisplay = (player, fighter, fighterName) => {
     fighterName.innerText = fighter.name;
 }
 const deselect = (event) => {
-    let icons = document.querySelectorAll('img');
-    let indicators = document.querySelectorAll('span');
-    if (currentPlayer === 2){
-        if (event.key ===  'Backspace'){
-            for (let i = 0; i < icons.length; i++){
+    if (controller.currentPlayer === 2) {
+        if (event.key === 'Backspace') {
+            for (let i = 0; i < mainScreen.icons.length; i++) {
                 icons[i].classList.remove('player1selected');
                 icons[i].classList.remove('player2selected');
             }
-            for (let i = 0; i < indicators.length; i++){
+            for (let i = 0; i < indicators.length; i++) {
                 indicators[i].style.display = 'none';
             }
-            currentPlayer = 1;
-            clearDisplay(display1[2], display1[1]);
-            clearDisplay(display2[2], display2[1]);
+            controller.currentPlayer = 1;
+            clearDisplay(mainScreen.display1[2], mainScreen.display1[1]);
+            clearDisplay(mainScreen.display2[2], mainScreen.display2[1]);
         }
     }
 }
 // write function to end demonstration or continue demonstration
-const overlayInput = (event) =>{
-    if (event.key === 'Enter'){ // check if the user pressed enter key
+const overlayInput = (event) => {
+    if (event.key === 'Enter') { // check if the user pressed enter key
         alert('End of Demonstration!');
         location.reload();
-    } else if (event.key === 'Backspace'){ // check if the user pressed backspace key
+    } else if (event.key === 'Backspace') { // check if the user pressed backspace key
         time = 60;
-        document.querySelector('.overlay').remove();
-        let icons = document.querySelectorAll('img');
-        for (let i = 0; i < icons.length; i++){
+        mainScreen.overlay.style.display = 'none';
+        for (let i = 0; i < mainScreen.icons.length; i++) {
             icons[i].classList.remove('player2selected');
         }
-        let indicators = document.querySelectorAll('.iconContainer .p2');
-        for (let i = 0; i < indicators.length; i++){
+        let 
+        for (let i = 0; i < mainScreen.player2Indicators.length; i++) {
             indicators[i].style.display = 'none';
         }
-        clearDisplay(display2[2], display2[1]);
+        clearDisplay(mainScreen.display2[2], mainScreen.display2[1]);
         selectTimer();
         window.removeEventListener('keyup', overlayInput);
-        body.style.pointerEvents = 'auto';
-        currentPlayer = 2;
+        mainScreen.body.style.pointerEvents = 'auto';
+        controller.currentPlayer = 2;
     }
     // an alert for an input that isn't any of the above is unneccesary    
 }
@@ -107,38 +124,38 @@ const randomFighter = () => {
     img.setAttribute('src', 'images/fighters/portraits/Random.png');
     img.classList.add('icon');
     img.classList.add('randomButton');
-    img.addEventListener('click', function(){
+    img.addEventListener('click', function () {
         let pick = random();
-        if (currentPlayer === 1){
+        if (controller.currentPlayer === 1) {
             // get the img that has the id of pick value, then grab the parent element (iconContainer),
             // then pick the child element with the class of p1
             document.getElementById(pick).parentElement.querySelector('.p1').style.display = 'block';
-        } else if (currentPlayer === 2){
+        } else if (controller.currentPlayer === 2) {
             document.getElementById(pick).parentElement.querySelector('.p2').style.display = 'block';
         }
         selectFighter(fighters[pick], pick);
         // instead of trying to get record of the dom element, just use "this"
-        if (this.classList.contains('player1selected')){
+        if (this.classList.contains('player1selected')) {
             this.classList.remove('player1selected');
-        } else if (this.classList.contains('player2selected')){
+        } else if (this.classList.contains('player2selected')) {
             this.classList.remove('player2selected');
         }
     });
-    img.addEventListener('mouseover', function(){
-        if (currentPlayer === 1){
+    img.addEventListener('mouseover', function () {
+        if (controller.currentPlayer === 1) {
             img.classList.add('player1selected');
-            display1[1].innerText = 'Random';
-            display1[2].src = '';
-        } else if (currentPlayer === 2) {
+            mainScreen.display1[1].innerText = 'Random';
+            mainScreen.display1[2].src = '';
+        } else if (controller.currentPlayer === 2) {
             img.classList.add('player2selected');
-            display2[1].innerText = 'Random';
-            display2[2].src = '';
+            mainScreen.display2[1].innerText = 'Random';
+            mainScreen.display2[2].src = '';
         }
     });
-    img.addEventListener('mouseout', function(){
-        if (currentPlayer === 1){
+    img.addEventListener('mouseout', function () {
+        if (controller.currentPlayer === 1) {
             img.classList.remove('player1selected');
-        } else if (currentPlayer === 2){
+        } else if (controller.currentPlayer === 2) {
             img.classList.remove('player2selected')
         }
     });
@@ -146,34 +163,34 @@ const randomFighter = () => {
 }
 // when a player hovers over an icon, display the fullbody picture
 const previewFighter = (item) => {
-    if (currentPlayer === 1){
-        let fighterImg = display1[2];
+    if (controller.currentPlayer === 1) {
+        let fighterImg = mainScreen.display1[2];
         fighterImg.classList.add('preview');
         fighterImg.setAttribute('src', item.full);
-        display1[1].innerText = item.name;
-    } else if (currentPlayer === 2){
-        let fighterImg = display2[2];
+        mainScreen.display1[1].innerText = item.name;
+    } else if (controller.currentPlayer === 2) {
+        let fighterImg = mainScreen.display2[2];
         fighterImg.classList.add('preview');
         fighterImg.setAttribute('src', item.full);
-        display2[1].innerText = item.name;
+        mainScreen.display2[1].innerText = item.name;
     }
 
 }
 const selectFighter = (elem, fighter) => {
     let playerIcon = document.getElementById(fighter); // queryselector doesn't allow for number id unless you use brackets ie [id='0'] or escape based on it's unicode point
     let iconContainer = playerIcon.parentElement // this is important for later
-    if (currentPlayer === 1){
+    if (controller.currentPlayer === 1) {
         let player1Indicator = iconContainer.querySelector('.p1') // needed the parent element (iconContainer) to grab the p1/p2 span
         playerIcon.classList.add('player1selected');
-        populateDisplay(display1[2], elem, display1[1]);
+        populateDisplay(mainScreen.display1[2], elem, mainScreen.display1[1]);
         player1Indicator.style.display = 'block';
-        currentPlayer = 2;
-    } else if (currentPlayer === 2){
+        controller.currentPlayer = 2;
+    } else if (controller.currentPlayer === 2) {
         let player2Indicator = iconContainer.querySelector('.p2');
         playerIcon.classList.add('player2selected');
-        populateDisplay(display2[2], elem, display2[1]);
+        populateDisplay(mainScreen.display2[2], elem, mainScreen.display2[1]);
         player2Indicator.style.display = 'block';
-        currentPlayer = null; // this prevents the script from removing the player2selected class unexpectedly
+        controller.currentPlayer = null; // this prevents the script from removing the player2selected class unexpectedly
         clearInterval(clock);
         readyPrompt();
     }
@@ -181,8 +198,8 @@ const selectFighter = (elem, fighter) => {
 const displayScreen = () => {
     bgm.play();
     bgm.volume = 0.5;
-    document.querySelector('.getStarted').remove();
-    for (let i = 0; i < fighters.length; i++){
+    mainScreen.getStarted.remove();
+    for (let i = 0; i < fighters.length; i++) {
         // create an element for player indication
         // create a div to store image and player indicator
         let iconContainer = document.createElement('div');
@@ -199,29 +216,29 @@ const displayScreen = () => {
         img.setAttribute('src', fighters[i].portrait);
         img.setAttribute('class', 'icon');
         img.setAttribute('id', i);
-        img.addEventListener('click', function(){
+        img.addEventListener('click', function () {
             selectFighter(fighters[this.id], this.id);
-            if (currentPlayer === 1){
+            if (controller.currentPlayer === 1) {
                 player1Indicator.style.display = 'block';
-            } else if (currentPlayer === 2){
+            } else if (controller.currentPlayer === 2) {
                 player2Indicator.style.display = 'block';
             }
         });
-        img.addEventListener('mouseover', function(){
-            if (currentPlayer === 1){
+        img.addEventListener('mouseover', function () {
+            if (controller.currentPlayer === 1) {
                 player1Indicator.style.display = 'block';
                 img.classList.add('player1selected');
-            } else if (currentPlayer === 2){
+            } else if (controller.currentPlayer === 2) {
                 player2Indicator.style.display = 'block';
                 img.classList.add('player2selected');
             }
             previewFighter(fighters[this.id]);
         });
-        img.addEventListener('mouseout', function(){
-            if (currentPlayer === 1){
+        img.addEventListener('mouseout', function () {
+            if (controller.currentPlayer === 1) {
                 player1Indicator.style.display = 'none';
                 img.classList.remove('player1selected');
-            } else if (currentPlayer === 2){
+            } else if (controller.currentPlayer === 2) {
                 player2Indicator.style.display = 'none';
                 img.classList.remove('player2selected');
             }
@@ -235,28 +252,20 @@ const displayScreen = () => {
     selectTimer();
 }
 const readyPrompt = () => {
-    let overlay = document.createElement('div');
-    let ready = document.createElement('h1');
-    window.addEventListener('keyup', overlayInput);
-    ready.innerHTML = 'Are You Ready?<span class="readyInput"><span>No (Backspace)</span><span>Yes (Enter)</span></span>';
-    overlay.append(ready);
-    overlay.setAttribute('class', 'overlay');
-    body.appendChild(overlay);
-    body.style.pointerEvents = 'none';
+    mainScreen.overlay.style.display = 'block'
+    mainScreen.body.style.pointerEvents = 'none';
 }
 window.addEventListener('keyup', deselect);
 
-let message = document.querySelector('.getStarted h1');
-let gsListener = document.querySelector('#listener');
 
 // this forces the user to interact with the DOM so the bgm can play without error
 const windowCheck = () => {
-    if (window.matchMedia('(max-height: 759px)').matches){ // matchMedia is a media query on JS, check if the window matches the media query
-        gsListener.innerText = 'Tap anywhere to get started!';
+    if (window.matchMedia('(max-height: 759px)').matches) { // matchMedia is a media query on JS, check if the window matches the media query
+        mainScreen.gsListener.innerText = 'Tap anywhere to get started!';
         window.addEventListener('touchend', displayScreen); // touchstart didn't allow the bgm to play
     } else {
-        gsListener.innerText = 'Click here to get started!';
-        message.addEventListener('click', displayScreen);
+        mainScreen.gsListener.innerText = 'Click here to get started!';
+        mainScreen.message.addEventListener('click', displayScreen);
     }
 }
 
